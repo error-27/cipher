@@ -16,6 +16,10 @@ enum Cipher {
     Caesar {
         shift: usize,
         input: String
+    },
+    Vigenere {
+        key: String,
+        input: String
     }
 }
 
@@ -27,12 +31,18 @@ fn main() {
         output = match args.cipher {
             Cipher::Caesar {input, shift} => {
                 ciphers::encode_caesar(input, shift)
+            },
+            Cipher::Vigenere {key, input} => {
+                ciphers::encode_vigenere(input, key)
             }
         }
     } else {
         output = match args.cipher {
             Cipher::Caesar {input, shift} => {
                 ciphers::decode_caesar(input, shift)
+            },
+            Cipher::Vigenere {key, input} => {
+                ciphers::decode_vigenere(input, key)
             }
         }
     }
