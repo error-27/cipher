@@ -26,8 +26,16 @@ pub fn decode_caesar(input: String, shift: usize) -> String {
 pub fn encode_vigenere(input: String, key: String) -> String {
     let mut i = 0;
     let mut output = "".to_string();
+
+    let k: String = key.chars().map(|c| { // Make sure the key is only alphabetic
+        if c.is_alphabetic() {
+            return Some(c);
+        }
+        None
+    }).flatten().collect();
+
     for c in input.chars() {
-        let key_char = key.chars().nth(i % key.len()).unwrap();
+        let key_char = k.chars().nth(i % k.len()).unwrap();
         let shift = key_char.to_ascii_lowercase() as u32 - ('a' as u32);
 
         if !c.is_alphabetic() {
@@ -55,8 +63,16 @@ pub fn encode_vigenere(input: String, key: String) -> String {
 pub fn decode_vigenere(input: String, key: String) -> String {
     let mut i = 0;
     let mut output = "".to_string();
+
+    let k: String = key.chars().map(|c| { // Make sure the key is only alphabetic
+        if c.is_alphabetic() {
+            return Some(c);
+        }
+        None
+    }).flatten().collect();
+
     for c in input.chars() {
-        let key_char = key.chars().nth(i % key.len()).unwrap();
+        let key_char = k.chars().nth(i % k.len()).unwrap();
         let shift = 26 - (key_char.to_ascii_lowercase() as u32 - ('a' as u32));
 
         if !c.is_alphabetic() {
